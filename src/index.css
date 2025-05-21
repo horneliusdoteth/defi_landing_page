@@ -1,5 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Optional custom styles below */
 .dark :focus {
-  outline-color: theme('colors.indigo.500');
+  outline-color: #6366f1;
 }
