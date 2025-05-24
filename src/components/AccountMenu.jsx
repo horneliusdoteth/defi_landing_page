@@ -1,6 +1,7 @@
-//AccountMenut.jsx
+// src/components/AccountMenu.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Link } from 'react-router-dom';
 
 const CIRCLE_URL = "https://your-circle-link.com"; // <-- update with your actual Circle link
 
@@ -41,7 +42,7 @@ const AccountMenu = () => {
     );
   }
 
-  // If authenticated, show account button
+  // If authenticated, show account button with dropdown
   return (
     <div className="relative" ref={buttonRef}>
       <button
@@ -67,11 +68,18 @@ const AccountMenu = () => {
       {/* Dropdown */}
       {dropdownOpen && (
         <div className="absolute right-0 mt-2 w-56 bg-off-white text-bg-dark rounded shadow-xl z-50 border border-blue-light">
+          <Link
+            to="/tools"
+            className="block px-6 py-3 hover:bg-blue-light hover:text-white transition font-medium"
+            onClick={() => setDropdownOpen(false)}
+          >
+            Tools
+          </Link>
           <a
             href={CIRCLE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="block px-6 py-3 hover:bg-blue-light hover:text-white transition font-medium rounded-t"
+            className="block px-6 py-3 hover:bg-blue-light hover:text-white transition font-medium"
             onClick={() => setDropdownOpen(false)}
           >
             Community & Courses

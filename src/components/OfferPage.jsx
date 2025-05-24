@@ -1,6 +1,8 @@
 // OfferPage.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { Link } from "react-router-dom";
+
 
 // Sample FAQ data
 const faqsData = [
@@ -64,13 +66,13 @@ export default function OfferPage() {
 	};
 
 	return (
-		<div className="bg-bg-dark text-off-white w-full min-h-screen relative pt-12 md:pt-4">
+		<div className="text-off-white w-full min-h-screen relative pt-12 md:pt-4">
 			{/*
         1) HERO / ABOVE-THE-FOLD
          - One screen height (h-screen => 100vh)
          - We'll animate each item with Framer Motion
       */}
-			<div className="w-full h-screen overflow-hidden bg-bg-dark flex flex-col items-center justify-center px-4">
+			<div className="w-full h-screen overflow-hidden flex flex-col items-center justify-center px-4">
 				{/* HEADLINES container with stagger effect */}
 				<motion.div
 					className="text-center -mt-24 mb-4 space-y-4"
