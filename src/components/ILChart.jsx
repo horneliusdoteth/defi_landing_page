@@ -1,5 +1,6 @@
 // ILChart.jsx
 import React from "react";
+
 import {
 	LineChart,
 	Line,
@@ -45,21 +46,27 @@ export default function ILChart({
 	const desiredNumTicks = 10;
 
 	// Always include min and max
-	const minTick = minPrice * 0.5;
+	// const minTick = minPrice * 0.5;
 	const maxTick = maxPrice * 2;
 
-	let ticks = [];
-	if (minTick > 0 && maxTick > minTick) {
-		const logMin = Math.log(minTick);
+	const minTickPos = minPrice * 0.5;      // first positive point
+
+
+	// let ticks = [];
+	// if (minTick > 0 && maxTick > minTick) {
+	// 	const logMin = Math.log(minTick);
+	let ticks = [0];
+	if (minTickPos > 0 && maxTick > minTickPos) {
+ 		const logMin = Math.log(minTickPos);
 		const logMax = Math.log(maxTick);
 
 		for (let i = 0; i < desiredNumTicks; i++) {
 			const ratio = i / (desiredNumTicks - 1);
 			const tickValue = Math.exp(logMin + (logMax - logMin) * ratio);
-			ticks.push(Number(tickValue.toFixed(0))); // round for label clarity
+			ticks.push(Number(tickValue.toFixed(0)));
 		}
 	}
-
+ticks = [...new Set(ticks)].sort((a, b) => a - b);
 	// Compute the amounts you'd have if you just held at initial price
 	const halfDeposit =
 		data && data.length
@@ -93,7 +100,9 @@ export default function ILChart({
 					dataKey="price"
 					type="number"
 					scale="linear"
-					domain={[minTick, maxTick]}
+					// domain={[0, maxTick]}
+					domain={xDomain ?? [0, maxTick]}
+					allowDataOverflow
 					stroke="#f1efe4"
 					fontSize={14}
 					tickFormatter={(value) => Math.round(value)}

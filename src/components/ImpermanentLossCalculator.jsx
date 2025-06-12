@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { calculateUniswapV3IL, generateV3ILCurveData } from "../utils/impermanentLoss";
 import * as htmlToImage from "html-to-image";
 import ILChart from "./ILChart";
+import ZoomableChart from "./ZoomableChart";
 
 function NumberInput({ label, value, onChange, min = 0.01, step = 0.01, ...props }) {
 	return (
@@ -103,7 +104,8 @@ function InputPanel({
     />
     <input
       type="number"
-      min={minPrice * 0.5}
+    //   min={minPrice * 0.5}
+      min={0}
       max={maxPrice * 2}
       step={0.0001}
       value={currentPrice}
@@ -244,7 +246,7 @@ function OutputPanel({
 				ref={chartRef}
 				className="w-full bg-bg-dark p-3 rounded-2xl border border-blue-mid shadow-lg"
 			>
-				<ILChart
+				{/* <ILChart
 					data={chartData}
 					currentPrice={currentPrice}
 					minPrice={minPrice}
@@ -253,7 +255,22 @@ function OutputPanel({
 					height={chartHeight}
 					tokenA={tokenA}
 					tokenB={tokenB}
-				/>
+				/> */}
+				<ZoomableChart data={chartData}>
+  {(xDomain) => (
+    <ILChart
+      data={chartData}
+      currentPrice={currentPrice}
+      minPrice={minPrice}
+      maxPrice={maxPrice}
+      initialPrice={initialPrice}
+      height={chartHeight}
+      tokenA={tokenA}
+      tokenB={tokenB}
+      xDomain={xDomain}    // <— controlled by wrapper
+    />
+  )}
+</ZoomableChart>
 			</div>
 			<div className="text-xs text-gray-400 mt-3 text-center max-w-lg">
 				Chart shows impermanent loss % for various price scenarios. <br />
